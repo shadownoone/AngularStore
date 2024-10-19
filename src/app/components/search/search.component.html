@@ -1,0 +1,30 @@
+<div>
+  <h2>Tìm kiếm sản phẩm</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Nhập từ khóa tìm kiếm..."
+  />
+  <button (click)="searchProducts()">Tìm kiếm</button>
+
+  <!-- Hiển thị thông báo lỗi nếu có -->
+  <p *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</p>
+
+  <!-- Hiển thị danh sách sản phẩm nếu có kết quả -->
+  <div *ngIf="products.length > 0">
+    <h3>Kết quả tìm kiếm:</h3>
+    <ul>
+      <li *ngFor="let product of products">
+        <p><strong>Tên sản phẩm:</strong> {{ product.name }}</p>
+        <p><strong>Giá:</strong> {{ product.price }}</p>
+        <!-- Hiển thị các thông tin khác của sản phẩm nếu cần -->
+      </li>
+    </ul>
+  </div>
+
+  <!-- Hiển thị nếu không có kết quả tìm kiếm -->
+  <p *ngIf="products.length === 0 && !errorMessage">
+    Không có sản phẩm nào phù hợp với từ khóa "{{ searchQuery }}"
+  </p>
+</div>

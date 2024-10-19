@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,12 +8,18 @@ import { Component } from '@angular/core';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
-export class ProfileComponent {
-  user = {
-    name: 'Nguyễn Văn A',
-    email: 'nguyenvana@example.com',
-    phone: '0123456789',
-    address: '123 Đường ABC, Quận 1, TP.HCM',
-    avatar: 'https://via.placeholder.com/150', // Thay bằng URL ảnh đại diện của người dùng
-  };
+export class ProfileComponent implements OnInit {
+  user: any = null;
+  constructor(private appService: AppService) {}
+  ngOnInit(): void {
+    this.appService.getCurrentUser().subscribe(
+      (response: any) => {
+        this.user = response; // Lưu thông tin người dùng
+        console.log('User info:', this.user);
+      },
+      (error: any) => {
+        console.error('Error fetching user info:', error);
+      }
+    );
+  }
 }

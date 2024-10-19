@@ -11,7 +11,7 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./product-section.component.css'], // Sửa styleUrl thành styleUrls
 })
 export class ProductSectionComponent {
-  products: any;
+  products: any[] = [];
 
   constructor(private app: AppService) {}
 

@@ -8,12 +8,14 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'list-product', component: ListProductComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },

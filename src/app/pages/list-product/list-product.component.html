@@ -2,6 +2,7 @@
 <div class="container-fluid fruite py-5">
   <div class="container py-5">
     <h1 class="mb-4">Fresh fruits shop</h1>
+
     <div class="row g-4">
       <div class="col-lg-12">
         <div class="row g-4">
@@ -11,9 +12,13 @@
                 type="search"
                 class="form-control p-3"
                 placeholder="keywords"
+                [(ngModel)]="searchQuery"
                 aria-describedby="search-icon-1"
               />
-              <span id="search-icon-1" class="input-group-text p-3"
+              <span
+                id="search-icon-1"
+                class="input-group-text p-3"
+                (click)="searchProducts()"
                 ><i class="fa fa-search"></i
               ></span>
             </div>
@@ -90,61 +95,6 @@
               </div>
 
               <div class="col-lg-12">
-                <div class="mb-3">
-                  <h4>Additional</h4>
-                  <div class="mb-2">
-                    <input
-                      type="radio"
-                      class="me-2"
-                      id="Categories-1"
-                      name="Categories-1"
-                      value="Beverages"
-                    />
-                    <label for="Categories-1"> Organic</label>
-                  </div>
-                  <div class="mb-2">
-                    <input
-                      type="radio"
-                      class="me-2"
-                      id="Categories-2"
-                      name="Categories-1"
-                      value="Beverages"
-                    />
-                    <label for="Categories-2"> Fresh</label>
-                  </div>
-                  <div class="mb-2">
-                    <input
-                      type="radio"
-                      class="me-2"
-                      id="Categories-3"
-                      name="Categories-1"
-                      value="Beverages"
-                    />
-                    <label for="Categories-3"> Sales</label>
-                  </div>
-                  <div class="mb-2">
-                    <input
-                      type="radio"
-                      class="me-2"
-                      id="Categories-4"
-                      name="Categories-1"
-                      value="Beverages"
-                    />
-                    <label for="Categories-4"> Discount</label>
-                  </div>
-                  <div class="mb-2">
-                    <input
-                      type="radio"
-                      class="me-2"
-                      id="Categories-5"
-                      name="Categories-1"
-                      value="Beverages"
-                    />
-                    <label for="Categories-5"> Expired</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
                 <h4 class="mb-3">Featured products</h4>
                 <div class="d-flex align-items-center justify-content-start">
                   <div class="rounded me-4" style="width: 100px; height: 100px">
@@ -171,56 +121,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded me-4" style="width: 100px; height: 100px">
-                    <img
-                      src="img/featur-2.jpg"
-                      class="img-fluid rounded"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Big Banana</h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">2.99 $</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        4.11 $
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                  <div class="rounded me-4" style="width: 100px; height: 100px">
-                    <img
-                      src="img/featur-3.jpg"
-                      class="img-fluid rounded"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h6 class="mb-2">Big Banana</h6>
-                    <div class="d-flex mb-2">
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star text-secondary"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                    <div class="d-flex mb-2">
-                      <h5 class="fw-bold me-2">2.99 $</h5>
-                      <h5 class="text-danger text-decoration-line-through">
-                        4.11 $
-                      </h5>
-                    </div>
-                  </div>
-                </div>
+
                 <div class="d-flex justify-content-center my-4">
                   <a
                     href="#"
@@ -232,58 +133,73 @@
             </div>
           </div>
           <div class="col-lg-9">
-            <div class="row g-4 justify-content-center">
+            <!-- Thông báo nếu không có sản phẩm nào -->
+            <div *ngIf="noResults" class="text-center">
+              <h3>Không có sản phẩm này</h3>
+            </div>
+            <div *ngIf="!noResults" class="row g-4 justify-content-center">
               <div
                 class="col-md-6 col-lg-6 col-xl-4"
-                *ngFor="let pro of products"
+                *ngFor="let pro of paginatedProducts"
               >
                 <div class="rounded position-relative fruite-item">
-                  <div class="fruite-img">
-                    <img
-                      [src]="pro.image"
-                      class="img-fluid w-100 rounded-top"
-                      alt=""
-                    />
-                  </div>
-                  <div
-                    class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                    style="top: 10px; left: 10px"
-                  >
-                    Fruits
-                  </div>
-                  <div
-                    class="p-4 border border-secondary border-top-0 rounded-bottom"
-                  >
-                    <h4>{{ pro.name }}</h4>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit
-                      sed do eiusmod te incididunt
-                    </p>
-                    <div class="d-flex justify-content-between flex-lg-wrap">
-                      <p class="text-dark fs-5 fw-bold mb-0">
-                        {{ pro.price | currency : " " }}
-                      </p>
-                      <a
-                        href="#"
-                        class="btn border border-secondary rounded-pill px-3 text-primary"
-                        ><i class="fa fa-shopping-bag me-2 text-primary"></i>
-                        Thêm</a
-                      >
+                  <a [routerLink]="['/product', pro.id]">
+                    <div class="fruite-img">
+                      <img
+                        [src]="pro.image"
+                        class="img-fluid w-100 rounded-top"
+                        alt=""
+                      />
                     </div>
-                  </div>
+                    <div
+                      class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                      style="top: 10px; left: 10px"
+                    >
+                      Fruits
+                    </div>
+                    <div
+                      class="p-4 border border-secondary border-top-0 rounded-bottom"
+                    >
+                      <h4>{{ pro.name }}</h4>
+                      <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit
+                        sed do eiusmod te incididunt
+                      </p>
+                      <div class="d-flex justify-content-between flex-lg-wrap">
+                        <p class="text-dark fs-5 fw-bold mb-0">
+                          {{ pro.price | currency : " " }}
+                        </p>
+                        <a
+                          href="#"
+                          class="btn border border-secondary rounded-pill px-3 text-primary"
+                          ><i class="fa fa-shopping-bag me-2 text-primary"></i>
+                          Thêm</a
+                        >
+                      </div>
+                    </div>
+                  </a>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="pagination d-flex justify-content-center mt-5">
-                  <a href="#" class="rounded">&laquo;</a>
-                  <a href="#" class="active rounded">1</a>
-                  <a href="#" class="rounded">2</a>
-                  <a href="#" class="rounded">3</a>
-                  <a href="#" class="rounded">4</a>
-                  <a href="#" class="rounded">5</a>
-                  <a href="#" class="rounded">6</a>
-                  <a href="#" class="rounded">&raquo;</a>
+                  <button
+                    class="rounded"
+                    (click)="previousPage()"
+                    [disabled]="currentPage === 1"
+                  >
+                    &laquo;
+                  </button>
+                  <span class="rounded"
+                    >Page {{ currentPage }} of {{ totalPages }}</span
+                  >
+                  <button
+                    class="rounded"
+                    (click)="nextPage()"
+                    [disabled]="currentPage === totalPages"
+                  >
+                    &raquo;
+                  </button>
                 </div>
               </div>
             </div>

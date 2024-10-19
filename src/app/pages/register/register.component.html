@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center align-items-center vh-100 mt-5">
+  <form
+    class="p-4 rounded shadow-lg"
+    style="width: 400px"
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <h2 class="text-center mb-4">Đăng Ký</h2>
+
+    <!-- Tên -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Tên</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        formControlName="name"
+        [class.is-invalid]="
+          registerForm.get('name')?.invalid && registerForm.get('name')?.touched
+        "
+      />
+      <div
+        *ngIf="
+          registerForm.get('name')?.invalid && registerForm.get('name')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Vui lòng nhập tên của bạn.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="email"
+        [class.is-invalid]="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched
+        "
+      />
+      <div
+        *ngIf="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Vui lòng nhập email hợp lệ.
+      </div>
+    </div>
+
+    <!-- Mật khẩu -->
+    <div class="mb-3">
+      <label for="password" class="form-label">Mật Khẩu</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="form-control"
+        [class.is-invalid]="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched
+        "
+      />
+      <div
+        *ngIf="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Mật khẩu phải có ít nhất 6 ký tự.
+      </div>
+    </div>
+
+    <!-- Nhập lại mật khẩu -->
+    <div class="mb-3">
+      <label for="confirmPassword" class="form-label">Nhập lại mật khẩu</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        class="form-control"
+        formControlName="confirmPassword"
+        [class.is-invalid]="
+          registerForm.errors?.['notSame'] &&
+          registerForm.get('confirmPassword')?.touched
+        "
+      />
+      <div
+        *ngIf="
+          registerForm.errors?.['notSame'] &&
+          registerForm.get('confirmPassword')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Mật khẩu không khớp.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
+
+    <div class="text-center mt-3">
+      <a [routerLink]="['/login']" class="text-decoration-none"
+        >Đã có tài khoản? Đăng Nhập</a
+      >
+    </div>
+  </form>
+</div>

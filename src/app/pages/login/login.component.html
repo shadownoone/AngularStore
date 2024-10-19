@@ -1,5 +1,10 @@
-<div class="d-flex justify-content-center align-items-center vh-100">
-  <form class="p-4 rounded shadow-lg" style="width: 400px">
+<div class="d-flex justify-content-center align-items-center mt-5 vh-100">
+  <form
+    class="p-4 rounded shadow-lg"
+    style="width: 400px"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
     <h2 class="text-center mb-4">Đăng Nhập</h2>
 
     <div class="mb-3">
@@ -9,6 +14,9 @@
         id="email"
         class="form-control"
         formControlName="email"
+        [class.is-invalid]="
+          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+        "
       />
       <div
         *ngIf="
@@ -16,17 +24,21 @@
         "
         class="invalid-feedback"
       >
-        Please enter a valid email.
+        Vui lòng nhập email hợp lệ.
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label">Mật khẩu</label>
       <input
         type="password"
         id="password"
         class="form-control"
         formControlName="password"
+        [class.is-invalid]="
+          loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched
+        "
       />
       <div
         *ngIf="
@@ -35,10 +47,15 @@
         "
         class="invalid-feedback"
       >
-        Password must be at least 6 characters.
+        Mật khẩu phải có ít nhất 6 ký tự.
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary w-100">Login</button>
+    <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+    <div class="text-center mt-3">
+      <a [routerLink]="['/register']" class="text-decoration-none"
+        >Chưa có tài khoản? Đăng Ký</a
+      >
+    </div>
   </form>
 </div>

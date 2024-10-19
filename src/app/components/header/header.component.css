@@ -1,0 +1,78 @@
+/* Ẩn menu khi không hover */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Hiển thị menu khi hover vào avatar */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-menu a {
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  color: #007bff;
+}
+.logout {
+  cursor: pointer;
+}
+.d-flex {
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+.me-4,
+.me-0 {
+  margin-right: 1.5rem !important;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* Đảm bảo các icon trong cùng một hàng */
+i.fas,
+i.fa {
+  font-size: 2rem; /* Đảm bảo các icon có cùng kích thước */
+}
+
+/* Đảm bảo căn chỉnh phần badge số lượng sản phẩm trên giỏ hàng */
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+  top: -10px; /* Đặt lại vị trí của badge để không bị lệch */
+  left: 15px;
+  background-color: #ffcc00; /* Màu của badge */
+  color: black;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  min-width: 20px;
+  text-align: center;
+}
