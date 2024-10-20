@@ -21,6 +21,7 @@ export class ListProductComponent implements OnInit {
   totalPages: number = 0;
   searchQuery: string = '';
   noResults: boolean = false; // Biến để kiểm tra có sản phẩm hay không
+  categories: any[] = [];
 
   constructor(
     private app: AppService,
@@ -29,11 +30,23 @@ export class ListProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadCategories();
     // Lấy từ khóa tìm kiếm từ query params
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = params['search'] || ''; // Nếu không có từ khóa tìm kiếm, để rỗng
       this.loadProducts(); // Tải sản phẩm khi có từ khóa hoặc không
     });
+  }
+  // Hàm lấy danh sách thể loại
+  loadCategories(): void {
+    this.app.getCategories().subscribe(
+      (response: any) => {
+        this.categories = response; // Lưu dữ liệu thể loại nhận được\
+      },
+      (error: any) => {
+        console.error('Failed to load categories:', error);
+      }
+    );
   }
 
   loadProducts(): void {

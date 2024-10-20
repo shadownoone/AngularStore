@@ -4,12 +4,12 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Products</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Sản Phẩm</th>
+            <th scope="col">Tên Sản Phẩm</th>
+            <th scope="col">Giá Tiền</th>
+            <th scope="col">Số Lượng</th>
+            <th scope="col">Tổng Tiền</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
               <p class="mb-0 mt-4">{{ item.name }}</p>
             </td>
             <td>
-              <p class="mb-0 mt-4">{{ item.price }}</p>
+              <p class="mb-0 mt-4">{{ item.price | currency : " " }}</p>
             </td>
             <td>
               <div class="input-group quantity mt-4" style="width: 100px">
@@ -58,7 +58,7 @@
             </td>
             <td>
               <p class="mb-0 mt-4">
-                {{ item.price * item.quantity }}
+                {{ item.price * item.quantity | currency : " " }}
               </p>
             </td>
             <td>
@@ -80,21 +80,21 @@
         <div class="bg-light rounded">
           <div class="p-4">
             <h1 class="display-6 mb-4">
-              Cart <span class="fw-normal">Total</span>
+              <span class="fw-normal">Tổng Tiền</span>
             </h1>
             <div class="d-flex justify-content-between mb-4">
-              <h5 class="mb-0 me-4">Subtotal:</h5>
+              <h5 class="mb-0 me-4">Tổng phụ:</h5>
               <p class="mb-0">
-                {{ calculateTotal(cartItems$ | async) }}
+                {{ calculateTotal(cartItems$ | async) | currency : " " }}
               </p>
             </div>
           </div>
           <div
             class="py-4 mb-4 border-top border-bottom d-flex justify-content-between"
           >
-            <h5 class="mb-0 ps-4 me-4">Total</h5>
+            <h5 class="mb-0 ps-4 me-4">Tổng</h5>
             <p class="mb-0 pe-4">
-              {{ calculateTotal(cartItems$ | async) }}
+              {{ calculateTotal(cartItems$ | async) | currency : " " }}
             </p>
           </div>
           <button
@@ -102,7 +102,7 @@
             type="button"
             (click)="proceedToCheckout()"
           >
-            Proceed to Checkout
+            Thanh Toán
           </button>
         </div>
       </div>

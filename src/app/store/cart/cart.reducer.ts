@@ -1,5 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { addToCart, removeFromCart, updateQuantity } from './cart.actions';
+import {
+  addToCart,
+  clearCart,
+  removeFromCart,
+  updateQuantity,
+} from './cart.actions';
 
 export interface CartState {
   products: any[];
@@ -44,5 +49,9 @@ export const cartReducer = createReducer(
     products: state.products.map((product, i) =>
       i === index ? { ...product, quantity } : product
     ),
+  })),
+  on(clearCart, (state) => ({
+    ...state,
+    products: [], // Xóa toàn bộ sản phẩm trong giỏ hàng
   }))
 );

@@ -1,0 +1,74 @@
+<div class="container py-10">
+  <h1 class="mb-4">Trạng thái hóa đơn</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Phương thức</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Ngày đặt</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ bill.method }}</td>
+        <td>{{ bill.status }}</td>
+        <td>{{ bill.description }}</td>
+        <td>{{ bill.createdAt | date : "medium" }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="viewDetails(bill.id)">
+            Xem chi tiết
+          </button>
+          <button
+            class="btn btn-danger btn-sm ms-2"
+            (click)="confirmDelete(bill.id)"
+          >
+            Hủy đơn
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="bills.length === 0" class="alert alert-info">
+    No orders found.
+  </div>
+
+  <!-- Hiển thị chi tiết hóa đơn -->
+  <div *ngIf="billDetails">
+    <h2 class="mt-5">Chi Tiết Hóa đơn #{{ selectedBillId }}</h2>
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Tổng tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of billDetails">
+          <td>
+            <div class="d-flex align-items-center">
+              <img
+                [src]="detail.product.image"
+                alt="{{ detail.product.name }}"
+                width="50"
+                height="50"
+                class="me-2"
+              />
+              {{ detail.product.name }}
+            </div>
+          </td>
+          <td>{{ detail.quantity }}</td>
+          <td>{{ detail.product.price | currency : " " }}</td>
+          <td>{{ detail.total | currency : " " }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

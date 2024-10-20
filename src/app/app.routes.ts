@@ -9,6 +9,7 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { StatusOrderComponent } from './pages/status-order/status-order.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,4 +22,5 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'product/:id', component: DetailComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'status-order', component: StatusOrderComponent },
 ];

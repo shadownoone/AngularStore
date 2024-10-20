@@ -1,9 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
   constructor(private http: HttpClient) {}
+
+  deleteBill(billId: number): Observable<any> {
+    return this.http.delete(`http://localhost:8000/api/bill/${billId}`, {
+      withCredentials: true, // Gửi kèm cookie để xác thực
+    });
+  }
+
+  // Hàm lấy thể loại từ API
+  getCategories(): any {
+    return this.http.get<any>('http://localhost:8000/api/category/getall');
+  }
+
+  // Thêm vào AppService
+  getBillDetails(billId: number): any {
+    return this.http.get<any>(
+      `http://localhost:8000/api/billDetail/${billId}`,
+      {
+        withCredentials: true, // Gửi kèm cookie để xác thực
+      }
+    );
+  }
+
+  // Phương thức lấy danh sách hóa đơn theo user_id
+  getBillsByUserId(userId: number): any {
+    return this.http.get<any>(`http://localhost:8000/api/bill/${userId}`, {
+      withCredentials: true,
+    });
+  }
+
+  // Gửi yêu cầu tạo hóa đơn
+  createBill(billData: any): any {
+    return this.http.post<any>(`http://localhost:8000/api/bill`, billData, {
+      withCredentials: true, // Gửi cookie kèm theo để xác thực người dùng
+    });
+  }
 
   searchProducts(searchQuery: string): any {
     return this.http.get<any>(`http://localhost:8000/api/product/search`, {

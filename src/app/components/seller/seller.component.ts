@@ -16,6 +16,7 @@ export class SellerComponent {
   ngOnInit(): void {
     this.app.products().subscribe((res: any) => {
       this.products = res.data;
+      console.log(res.data);
     });
   }
 }

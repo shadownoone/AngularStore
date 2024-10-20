@@ -15,7 +15,6 @@ export class ProfileComponent implements OnInit {
     this.appService.getCurrentUser().subscribe(
       (response: any) => {
         this.user = response; // Lưu thông tin người dùng
-        console.log('User info:', this.user);
       },
       (error: any) => {
         console.error('Error fetching user info:', error);

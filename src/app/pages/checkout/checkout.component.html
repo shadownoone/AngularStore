@@ -1,65 +1,39 @@
 <div class="container-fluid py-10">
   <div class="container py-5">
-    <h1 class="mb-4">Billing details</h1>
+    <h1 class="mb-4">Thanh Toán</h1>
     <form action="#" #checkoutForm="ngForm" novalidate>
       <!-- Thông tin chi tiết thanh toán ở đây -->
 
       <div class="row g-5">
         <div class="col-md-12 col-lg-6 col-xl-7">
-          <div class="row">
-            <div class="col-md-12 col-lg-6">
-              <div class="form-item w-100">
-                <label class="form-label my-3">First Name<sup>*</sup></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="firstName"
-                  [(ngModel)]="firstName"
-                  required
-                />
-                <div
-                  *ngIf="
-                    checkoutForm.controls['firstName']?.invalid &&
-                    checkoutForm.controls['firstName']?.touched
-                  "
-                  class="text-danger"
-                >
-                  First Name is required.
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12 col-lg-6">
-              <div class="form-item w-100">
-                <label class="form-label my-3">Last Name<sup>*</sup></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="lastName"
-                  [(ngModel)]="lastName"
-                  required
-                />
-                <div
-                  *ngIf="
-                    checkoutForm.controls['lastName']?.invalid &&
-                    checkoutForm.controls['lastName']?.touched
-                  "
-                  class="text-danger"
-                >
-                  Last Name is required.
-                </div>
-              </div>
+          <div class="form-item">
+            <label class="form-label my-3">Tên<sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="firstName"
+              [(ngModel)]="firstName"
+              required
+            />
+            <div
+              *ngIf="
+                checkoutForm.controls['firstName']?.invalid &&
+                checkoutForm.controls['firstName']?.touched
+              "
+              class="text-danger"
+            >
+              Không được để trống.
             </div>
           </div>
 
           <div class="form-item">
-            <label class="form-label my-3">Address <sup>*</sup></label>
+            <label class="form-label my-3">Địa chỉ <sup>*</sup></label>
             <input
               type="text"
               class="form-control"
               name="address"
               [(ngModel)]="address"
               required
-              placeholder="House Number Street Name"
             />
             <div
               *ngIf="
@@ -68,12 +42,12 @@
               "
               class="text-danger"
             >
-              Address is required.
+              Không được để trống.
             </div>
           </div>
 
           <div class="form-item">
-            <label class="form-label my-3">Mobile<sup>*</sup></label>
+            <label class="form-label my-3">Số điện thoại<sup>*</sup></label>
             <input
               type="tel"
               class="form-control"
@@ -89,11 +63,11 @@
               "
               class="text-danger"
             >
-              Mobile number is required and must be numeric.
+              Không được để trống.
             </div>
           </div>
           <div class="form-item">
-            <label class="form-label my-3">Email Address<sup>*</sup></label>
+            <label class="form-label my-3">Email<sup>*</sup></label>
             <input
               type="email"
               class="form-control"
@@ -108,7 +82,7 @@
               "
               class="text-danger"
             >
-              A valid email is required.
+              Không được để trống.
             </div>
           </div>
 
@@ -119,7 +93,7 @@
               spellcheck="false"
               cols="30"
               rows="11"
-              placeholder="Order Notes (Optional)"
+              placeholder="Ghi chú"
             ></textarea>
           </div>
         </div>
@@ -129,11 +103,11 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Products</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Total</th>
+                  <th scope="col">Sản Phẩm</th>
+                  <th scope="col">Tên</th>
+                  <th scope="col">Giá</th>
+                  <th scope="col">Số Lượng</th>
+                  <th scope="col">Tổng Tiền</th>
                 </tr>
               </thead>
               <tbody>
@@ -150,10 +124,10 @@
                     </div>
                   </th>
                   <td class="py-5">{{ item.name }}</td>
-                  <td class="py-5">{{ item.price }}</td>
+                  <td class="py-5">{{ item.price | currency : " " }}</td>
                   <td class="py-5">{{ item.quantity }}</td>
                   <td class="py-5">
-                    {{ item.price * item.quantity }}
+                    {{ item.price * item.quantity | currency : " " }}
                   </td>
                 </tr>
 
@@ -162,13 +136,15 @@
                   <td class="py-5"></td>
                   <td class="py-5"></td>
                   <td class="py-5">
-                    <p class="mb-0 text-dark py-3">Subtotal</p>
+                    <p class="mb-0 text-dark py-3">Tổng :</p>
                   </td>
                   <td class="py-5">
                     <div class="py-3 border-bottom border-top">
                       <p class="mb-0 text-dark">
                         <!-- Tính tổng số tiền -->
-                        {{ calculateTotal(cartItems$ | async) }}
+                        {{
+                          calculateTotal(cartItems$ | async) | currency : " "
+                        }}
                       </p>
                     </div>
                   </td>
@@ -183,9 +159,10 @@
             <button
               type="button"
               class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
-              [disabled]="checkoutForm.invalid"
+              [disabled]="checkoutForm.invalid || isSubmitting"
+              (click)="placeOrder()"
             >
-              Place Order
+              Đặt Hàng
             </button>
           </div>
         </div>

@@ -1,0 +1,9 @@
+.rounded {
+  height: 400px;
+}
+.img-fluid {
+  height: 204px !important;
+}
+.cursor {
+  cursor: pointer;
+}

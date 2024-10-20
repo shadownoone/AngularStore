@@ -49,7 +49,19 @@ export class CartComponent implements OnInit {
       0
     );
   }
+
   proceedToCheckout(): void {
-    this.router.navigate(['/checkout']); // Điều hướng tới trang Checkout
+    // Giả sử bạn lưu token đăng nhập trong localStorage với tên 'token'
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      // Nếu đã đăng nhập, điều hướng tới trang Checkout
+      this.router.navigate(['/checkout']);
+    } else {
+      // Nếu chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
+      alert('Yêu cầu đăng nhập để tiếp tục.');
+      // Hoặc điều hướng tới trang đăng nhập nếu cần
+      // this.router.navigate(['/login']);
+    }
   }
 }

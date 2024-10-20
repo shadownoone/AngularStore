@@ -4,15 +4,14 @@
     <div class="text-center mx-auto mb-5" style="max-width: 700px">
       <h1 class="display-4">Sản Phẩm Bán Chạy</h1>
       <p>
-        Latin words, combined with a handful of model sentence structures, to
-        generate Lorem Ipsum which looks reasonable.
+        Các sản phẩm bán chạy nhất của cửa hàng chúng tôi, đặt mua ngay nào!!!
       </p>
     </div>
     <div class="row g-4" *ngIf="products && products.length > 0">
       <div class="col-lg-6 col-xl-4" *ngFor="let pro of products.slice(0, 6)">
         <div class="p-4 rounded bg-light">
           <div class="row align-items-center">
-            <a [routerLink]="['/product', pro.id]">
+            <a [routerLink]="['/product', pro.id]" class="cursor">
               <div class="col-6">
                 <img
                   [src]="pro.image"
